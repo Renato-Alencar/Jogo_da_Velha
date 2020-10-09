@@ -1,11 +1,14 @@
 var player, winner = null;
 var playerSelected = document.getElementById(elementId = 'player-selected');
 var winnerSelected = document.getElementById(elementId = 'winner-selected');
-var squares = document.getElementsByClassName(className = 'square');
 
 changePlayer(value = 'X');
 
 function chooseSquare(id) {
+    if(winner !== null){
+        return;
+    }
+
     var square = document.getElementById(id);
     if(square.innerHTML !== '-') {
         return;
@@ -57,7 +60,7 @@ function checkWinner() {
     }
     if(checkSequence(square1, square4, square7)) {
         changeSquareColor(square1, square4, square7);
-        changeWinner(square4);
+        changeWinner(square1);
         return;
     }
     if(checkSequence(square2, square5, square8)) {
@@ -99,4 +102,18 @@ function checkSequence(square1, square2, square3) {
         equal = true;
     }
     return equal;
+}
+
+function restartGame() {
+    winner = null;
+    winnerSelected.innerHTML = '';
+
+    for(var itera = 1; itera <= 9; itera++) {
+        var cleanSquare = document.getElementById(itera);
+        cleanSquare.style.background = '#eee';
+        cleanSquare.style.color = '#eeee';
+        cleanSquare.innerHTML = '-';
+    }
+
+    changePlayer(value = 'X');
 }
