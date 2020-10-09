@@ -1,5 +1,6 @@
-var player = null;
+var player, winner = null;
 var playerSelected = document.getElementById(elementId = 'player-selected');
+var winnerSelected = document.getElementById(elementId = 'winner-selected');
 var squares = document.getElementsByClassName(className = 'square');
 
 changePlayer(value = 'X');
@@ -20,6 +21,7 @@ function chooseSquare(id) {
         player = 'X';
     }
     changePlayer(player);
+    checkWinner();
 }
 
 function changePlayer(value) {
@@ -37,8 +39,64 @@ function checkWinner() {
     var square7 = document.getElementById(elementId = 7);
     var square8 = document.getElementById(elementId = 8);
     var square9 = document.getElementById(elementId = 9);
+
+    if(checkSequence(square1, square2, square3)) {
+        changeSquareColor(square1, square2, square3);
+        changeWinner(square1);
+        return;
+    }
+    if(checkSequence(square4, square5, square6)) {
+        changeSquareColor(square4, square5, square6);
+        changeWinner(square4);
+        return;
+    }
+    if(checkSequence(square7, square8, square9)) {
+        changeSquareColor(square7, square8, square9);
+        changeWinner(square7);
+        return;
+    }
+    if(checkSequence(square1, square4, square7)) {
+        changeSquareColor(square1, square4, square7);
+        changeWinner(square4);
+        return;
+    }
+    if(checkSequence(square2, square5, square8)) {
+        changeSquareColor(square2, square5, square8);
+        changeWinner(square2);
+    }
+    if(checkSequence(square3, square6, square9)) {
+        changeSquareColor(square3, square6, square9);
+        changeWinner(square3);
+        return;
+    }
+    if(checkSequence(square1, square5, square9)) {
+        changeSquareColor(square1, square5, square9);
+        changeWinner(square1);
+        return;
+    }
+    if(checkSequence(square3, square5, square7)) {
+        changeSquareColor(square3, square5, square7);
+        changeWinner(square3);
+        return;
+    }
 }
 
-function checkSequence() {
-    
+function changeSquareColor(square1, square2, square3) {
+    square1.style.background = '#0f0';
+    square2.style.background = '#0f0';
+    square3.style.background = '#0f0';
+}
+
+function changeWinner(square) {
+    winner = square.innerHTML;
+    winnerSelected.innerHTML = winner;
+}
+
+function checkSequence(square1, square2, square3) {
+    var equal = false;
+
+    if(square1.innerHTML!=='-' && square1.innerHTML === square2.innerHTML && square2.innerHTML === square3.innerHTML) {
+        equal = true;
+    }
+    return equal;
 }
